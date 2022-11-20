@@ -1,0 +1,21 @@
+version: '3'
+#1 service là 1 container
+services:
+  course-service:
+    #trỏ về folder chứa dockerfile
+    build:  ./course-service
+    #update server realtime, update vào container thẳng
+    volumes:
+      - ./course-service:/usr/src/app
+    ports:
+      - 5001:8080
+  website:
+    image: nginx:alpine
+    volumes:
+      - ./website:/usr/share/nginx/html
+    ports:
+      - 5002:80
+    depends_on:
+      - course-service
+      
+    
